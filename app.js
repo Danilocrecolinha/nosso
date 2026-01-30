@@ -848,5 +848,4 @@ function startParallax(){
     requestAnimationFrame(loop);
   };
   requestAnimationFrame(loop);
-
 }
