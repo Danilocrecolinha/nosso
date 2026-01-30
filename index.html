@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#05020f" />
+  <title>Para você ❤️</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <!-- Background FIXO (não quebra ao rolar) -->
+  <div class="bgWrap" aria-hidden="true">
+    <canvas id="stars"></canvas>
+    <div class="nebula"></div>
+    <div class="vignette"></div>
+    <div class="grain"></div>
+  </div>
+
+  <!-- Custom cursor -->
+  <div id="cursor" aria-hidden="true"></div>
+
+  <!-- Top bar -->
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo">✦</span>
+      <div class="brandText">
+        <div class="brandTitle" id="brandTitle">Nós dois</div>
+        <div class="brandSub" id="brandSub">Um lugar só nosso</div>
+      </div>
+    </div>
+
+    <nav class="nav">
+      <button class="navBtn" data-go="home">Início</button>
+      <button class="navBtn" data-go="countdown">Contagem</button>
+      <button class="navBtn" data-go="reasons">Motivos</button>
+      <button class="navBtn" data-go="memories">Memórias</button>
+      <button class="navBtn" data-go="letters">Cartas</button>
+      <button class="navBtn" data-go="game">Jogo</button>
+    </nav>
+
+    <div class="actions">
+      <button id="musicBtn" class="pill" aria-pressed="false" title="Música">
+        <span class="pillIcon">♫</span>
+        <span class="pillText">Música</span>
+      </button>
+      <button id="giftBtn" class="pill" title="Modo presente">
+        <span class="pillIcon">🎁</span>
+        <span class="pillText">Presente</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main -->
+  <main id="app" class="app">
+    <!-- Hero -->
+    <section class="section active" id="home" data-section>
+      <div class="hero">
+        <div class="heroLeft">
+          <div class="kicker" id="kicker">Para: <span id="herName">Seu Amor</span></div>
+
+          <h1 class="headline">
+            <span class="glow">Eu te amo</span>
+            <span class="thin"> de um jeito</span>
+            <span class="glow"> impossível de medir</span>.
+          </h1>
+
+          <p class="lead" id="lead">
+            Fiz esse lugar como se fosse um universo só nosso: interativo, cheio de detalhes,
+            com lembranças, promessas e motivos — tudo pra você sentir, de verdade, o quanto é especial pra mim.
+          </p>
+
+          <div class="ctaRow">
+            <button class="btn primary" id="startBtn">
+              Começar a viagem ✨
+            </button>
+            <button class="btn ghost" id="surpriseBtn">
+              Surpresa rápida 💫
+            </button>
+          </div>
+
+          <div class="miniStats">
+            <div class="statCard">
+              <div class="statLabel">Meu coração</div>
+              <div class="statValue" id="heartMeter">∞</div>
+              <div class="statHint">cresce todo dia</div>
+            </div>
+            <div class="statCard">
+              <div class="statLabel">Modo</div>
+              <div class="statValue" id="modeLabel">Romântico</div>
+              <div class="statHint">com estrelas</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="heroRight">
+          <div class="card portrait" id="portraitCard" tabindex="0" role="button" aria-label="Clique para ver uma mensagem">
+            <div class="portraitTop">
+              <div class="portraitBadge">Exclusivo</div>
+              <div class="portraitSpark" aria-hidden="true"></div>
+            </div>
+
+            <div class="portraitBody">
+              <div class="portraitTitle">Uma certeza</div>
+              <div class="portraitQuote" id="portraitQuote">
+                “Eu escolho você. Em dias bons e ruins. Hoje e sempre.”
+              </div>
+            </div>
+
+            <div class="portraitFooter">
+              <div class="chip">toque para mudar</div>
+              <div class="chip">arraste as estrelas</div>
+            </div>
+          </div>
+
+          <div class="floatingTips">
+            <div class="tip">👆 Tudo é clicável</div>
+            <div class="tip">🖱️ Passe o mouse e descubra</div>
+            <div class="tip">📱 No celular: toque e segure</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Countdown -->
+    <section class="section" id="countdown" data-section>
+      <div class="grid2">
+        <div class="panel">
+          <h2 class="title">Contagem para a gente se ver ❤️</h2>
+          <p class="muted">
+            Cada segundo é um lembrete: falta menos do que faltava.
+          </p>
+
+          <div class="countGrid" id="countGrid" aria-live="polite">
+            <div class="countBox">
+              <div class="countNum" id="d">0</div>
+              <div class="countLab">dias</div>
+            </div>
+            <div class="countBox">
+              <div class="countNum" id="h">0</div>
+              <div class="countLab">horas</div>
+            </div>
+            <div class="countBox">
+              <div class="countNum" id="m">0</div>
+              <div class="countLab">min</div>
+            </div>
+            <div class="countBox">
+              <div class="countNum" id="s">0</div>
+              <div class="countLab">seg</div>
+            </div>
+          </div>
+
+          <div class="row">
+            <button class="btn primary" id="addPromiseBtn">Adicionar promessa ✍️</button>
+            <button class="btn ghost" id="saveBtn">Salvar esse momento</button>
+          </div>
+
+          <div class="promiseList" id="promiseList"></div>
+        </div>
+
+        <div class="panel glass">
+          <h3 class="subtitle">Mapa do carinho</h3>
+          <p class="muted">
+            Passe o mouse (ou toque) nos pontos. Cada um guarda uma frase.
+          </p>
+
+          <div class="constellation" id="constellation" aria-label="Constelação interativa"></div>
+
+          <div class="quoteBox" id="quoteBox">
+            <div class="quoteMark">“</div>
+            <div class="quoteText" id="quoteText">Toque um ponto…</div>
+            <div class="quoteSig" id="quoteSig">— eu</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Reasons -->
+    <section class="section" id="reasons" data-section>
+      <div class="sectionHeader">
+        <h2 class="title">Motivos (infinitos) pra te amar</h2>
+        <p class="muted">Clique em qualquer card pra revelar detalhes escondidos.</p>
+      </div>
+
+      <div class="cards" id="reasonsGrid"></div>
+
+      <div class="centerRow">
+        <button class="btn primary" id="shuffleReasons">Embaralhar ✨</button>
+        <button class="btn ghost" id="addReason">Adicionar motivo</button>
+      </div>
+    </section>
+
+    <!-- Memories -->
+    <section class="section" id="memories" data-section>
+      <div class="grid2">
+        <div class="panel">
+          <h2 class="title">Memórias em galeria</h2>
+          <p class="muted">Clique numa foto para ver no modo cinema.</p>
+
+          <div class="gallery" id="gallery"></div>
+
+          <div class="row">
+            <button class="btn ghost" id="pulseGallery">Efeito cinema</button>
+            <button class="btn primary" id="sparkBtn">Chuva de estrelas</button>
+          </div>
+        </div>
+
+        <div class="panel glass">
+          <h3 class="subtitle">Linha do tempo</h3>
+          <p class="muted">A linha do tempo da nossa historia.</p>
+          <div class="timeline" id="timeline"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Letters -->
+    <section class="section" id="letters" data-section>
+      <div class="sectionHeader">
+        <h2 class="title">Cartas</h2>
+        <p class="muted">Abra, interaja, e descubra o que ficou guardado.</p>
+      </div>
+
+      <div class="letters" id="lettersGrid"></div>
+
+      <div class="finalLine" id="finalLine">
+        <span class="theEnd">O Final ❤️</span>
+        <span class="hint">…ou melhor: o começo.</span>
+      </div>
+    </section>
+
+    <!-- Game -->
+    <section class="section" id="game" data-section>
+      <div class="grid2">
+        <div class="panel">
+          <h2 class="title">Mini-jogo: colecionar corações</h2>
+          <p class="muted">Pegue corações, desvie de meteoros, e divirta-se.</p>
+
+          <div class="gameBox">
+            <canvas id="gameCanvas" width="860" height="420" aria-label="Jogo"></canvas>
+            <div class="gameHud">
+              <div class="hudItem">Pontos: <span id="score">0</span></div>
+              <div class="hudItem">Vidas: <span id="lives">3</span></div>
+            </div>
+          </div>
+
+          <div class="row">
+            <button class="btn primary" id="gameStart">Começar</button>
+            <button class="btn ghost" id="gameReset">Reiniciar</button>
+          </div>
+
+          <p class="small muted">
+            Controles: <b>← →</b> ou <b>A/D</b>. No celular, arraste.
+          </p>
+        </div>
+
+        <div class="panel glass">
+          <h3 class="subtitle">Mensagem final</h3>
+          <p class="muted">Um recado especial te espera aqui.</p>
+
+          <div class="bigMessage" id="bigMessage">
+            <div class="bigGlow" id="bigGlow">Você é a minha pessoa favorita no universo.</div>
+            <div class="typeLine" id="typeLine"></div>
+            <button class="btn primary" id="revealBtn">Revelar devagar ✨</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Modal: cinema -->
+  <div class="modal" id="modal" aria-hidden="true">
+    <div class="modalBackdrop" id="modalBackdrop"></div>
+    <div class="modalCard" role="dialog" aria-modal="true" aria-label="Visualizador">
+      <button class="modalClose" id="modalClose" aria-label="Fechar">✕</button>
+      <img id="modalImg" alt="Foto" />
+      <div class="modalCaption" id="modalCaption"></div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- Audio -->
+  <audio id="bgm" preload="auto" loop>
+    <source src="assets/music.mp3" type="audio/mpeg" />
+  </audio>
+
+  <footer class="footer">
+    <div class="footerLeft">Criado por Danilo ✦</div>
+    <div class="footerRight" id="footerRight">feito com amor</div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
