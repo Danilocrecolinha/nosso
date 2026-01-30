@@ -2,7 +2,7 @@
    CONFIG: EDITE AQUI
 ========================= */
 const CONFIG = {
-  herName: "SEU AMOR",
+  herName: "Beatriz",
   brandTitle: "Nós dois",
   brandSub: "Um lugar só nosso",
   // Data/hora do reencontro (fuso local do celular/PC)
@@ -848,4 +848,5 @@ function startParallax(){
     requestAnimationFrame(loop);
   };
   requestAnimationFrame(loop);
+
 }
